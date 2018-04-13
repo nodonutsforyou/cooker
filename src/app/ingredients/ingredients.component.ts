@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 
 import {Ingredient} from '../ingredient';
 import {IngredientsService} from '../ingredients.service';
+import {RecipiesService} from '../recipies.service';
 
 @Component({
   selector: 'app-ingredients',
@@ -13,7 +14,7 @@ export class IngredientsComponent implements OnInit {
   selected: Ingredient[];
   notSelected: Ingredient[];
 
-  constructor(private ingredientsService: IngredientsService) {}
+  constructor(private ingredientsService: IngredientsService, private  recipiesService: RecipiesService) {}
 
   ngOnInit() {
     this.getIngredients();
@@ -25,6 +26,7 @@ export class IngredientsComponent implements OnInit {
       .subscribe(ingredients => this.selected = ingredients);
     this.ingredientsService.getUnselectedIngredients()
       .subscribe(ingredients => this.notSelected = ingredients);
+    this.recipiesService.updateIngredientsStatus();
   }
 
   select(ingredient: Ingredient) {

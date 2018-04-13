@@ -6,6 +6,7 @@ import {of} from 'rxjs/observable/of';
 import {catchError, map, tap} from 'rxjs/operators';
 
 import {Ingredient} from './ingredient';
+import {RecipiesService} from './recipies.service';
 
 const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})
@@ -29,7 +30,8 @@ export class IngredientsService {
 
   private ingredientsUrl = 'api/ingredients';  // URL to web api
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+  }
 
   /** GET heroes from the server */
   getAllIngredients(): Observable<Ingredient[]> {
@@ -47,11 +49,19 @@ export class IngredientsService {
   }
 
   selectIngredient(id: number) {
-    this.mockIngredients.forEach(function(obj) {if (obj.id === id) {obj.selected = true;} });
+    this.mockIngredients.forEach(function (obj) {
+      if (obj.id === id) {
+        obj.selected = true;
+      }
+    });
   }
 
   unselectIngredient(id: number) {
-    this.mockIngredients.forEach(function(obj) {if (obj.id === id) {obj.selected = false;} });
+    this.mockIngredients.forEach(function (obj) {
+      if (obj.id === id) {
+        obj.selected = false;
+      }
+    });
   }
 
   isSelected(id: number): Boolean {
