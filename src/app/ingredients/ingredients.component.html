@@ -9,3 +9,15 @@
 			{{ingredient.name}} </span>
 	</div>
 </div>
+<h3>What do we can cook? ({{recepiesList.length}})</h3>
+<div class="recipiesBlock">
+	<table class="recepiesTable">
+		<tr *ngFor="let recipy of recepiesList"
+			[class.active]="recipy.haveIngredients">
+			<th>:</th>
+			<th>{{recipy.id}}</th>
+			<th>{{recipy.name}}</th>
+			<th>{{recipy.description}}</th>
+		</tr>
+	</table>
+</div>

@@ -10,7 +10,7 @@ import {IngredientsService} from './ingredients.service';
 
 @Injectable()
 export class RecipiesService {
-
+  
   constructor(private ingredientsService: IngredientsService) {}
 
   private mockRecipies: Recipy[] = [
@@ -23,6 +23,15 @@ export class RecipiesService {
     for (const recipy of this.mockRecipies) {
       recipy.haveIngredients = this.hasComponents(recipy);
     }
+    this.mockRecipies.sort((n1, n2) => {
+      if (n1.haveIngredients === n2.haveIngredients) {
+        return 0;
+      }
+      if (n1.haveIngredients === true) {
+        return -1;
+      }
+      return 1;
+    });
     console.log(this.mockRecipies);
     return of(this.mockRecipies);
   }
