@@ -1,0 +1,18 @@
+.routerButtons {
+    float: right;
+}
+
+.routerButtons a {
+	text-align: right;
+	padding: 5px 10px;
+	position: reght;
+	text-decoration: none;
+	margin: 10px;
+	display: inline-block;
+	background-color: #ddd;
+	border-radius: 4px;
+}
+
+.routerButtons a:hover {
+	background-color: #aaa;
+}

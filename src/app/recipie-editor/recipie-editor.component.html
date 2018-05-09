@@ -1,1 +1,9 @@
-<div class="editButton"><a>edit recipies</a></div>
+<h1>recipie editor</h1>
+<br />
+<div class="recipie editor">
+	<input [(ngModel)]="recipy.name" placeholder="recipy name" id="recipyName" />
+	<br />
+	<app-ingredients [ingredientsList]="ingredients" ></app-ingredients>
+	<br />
+	<input [(ngModel)]="recipy.description" placeholder="recipy description" id="recipyDescription" />
+</div>

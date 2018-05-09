@@ -1,2 +1,6 @@
-<app-recipie-editor> </app-recipie-editor>
-<app-ingredients> </app-ingredients>
+<div class="routerButtons">
+	<a routerLink="/" *ngIf="location.path() !== ''" >home</a>
+	<a routerLink="/edit" *ngIf="location.path() !== '/edit'">edit recipies</a>
+</div>
+<router-outlet></router-outlet>
+<!-- <app-ingredients> </app-ingredients> -->

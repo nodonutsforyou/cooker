@@ -10,13 +10,16 @@ import {IngredientsComponent} from './ingredients/ingredients.component';
 import {IngredientsService} from './ingredients.service';
 import {RecipiesService} from './recipies.service';
 import { RecipieEditorComponent } from './recipie-editor/recipie-editor.component';
+import { AppRoutingModule } from './/app-routing.module';
+import { FridgeComponent } from './fridge/fridge.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     IngredientsComponent,
-    RecipieEditorComponent
+    RecipieEditorComponent,
+    FridgeComponent
   ],
   imports: [
     BrowserModule,
@@ -28,9 +31,12 @@ import { RecipieEditorComponent } from './recipie-editor/recipie-editor.componen
     // Remove it when a real server is ready to receive requests.
     HttpClientInMemoryWebApiModule.forRoot(
       InMemoryDataService, {dataEncapsulation: false}
-    )
+    ),
+
+    AppRoutingModule
   ],
   providers: [IngredientsService, RecipiesService],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule {
+}

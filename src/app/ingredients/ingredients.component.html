@@ -1,23 +1,4 @@
-<h3>What do we have in fridge?</h3>
-<div class="fridge">
-	<div class="ingredientList">
-		<span *ngFor="let ingredient of selected" class="ingredient" (click)="unselect(ingredient)">
-			{{ingredient.name}} </span>
-	</div>
-	<div class="ingredientList">
-		<span *ngFor="let ingredient of notSelected" class="ingredient" (click)="select(ingredient)">
-			{{ingredient.name}} </span>
-	</div>
-</div>
-<h3>What do we can cook? ({{recepiesList.length}})</h3>
-<div class="recipiesBlock">
-	<table class="recepiesTable">
-		<tr *ngFor="let recipy of recepiesList"
-			[class.active]="recipy.haveIngredients">
-			<th>:</th>
-			<th>{{recipy.id}}</th>
-			<th>{{recipy.name}}</th>
-			<th>{{recipy.description}}</th>
-		</tr>
-	</table>
+<div class="ingredientList">
+	<span *ngFor="let ingredient of ingredientsList" class="ingredient"
+		(click)="pick(ingredient)"> {{ingredient.name}} </span>
 </div>

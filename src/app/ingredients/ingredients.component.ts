@@ -1,9 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnInit, Input, Output  } from '@angular/core';
 
 import {Ingredient} from '../ingredient';
 import {IngredientsService} from '../ingredients.service';
-import {Recipy} from '../recipy';
-import {RecipiesService} from '../recipies.service';
 
 @Component({
   selector: 'app-ingredients',
@@ -12,39 +10,21 @@ import {RecipiesService} from '../recipies.service';
 })
 export class IngredientsComponent implements OnInit {
 
-  selected: Ingredient[];
-  notSelected: Ingredient[];
-  recepiesList: Recipy[];
+  @Input() ingredientsList: Ingredient[];
+  @Output() picked = new EventEmitter<Ingredient>();
 
-  constructor(private ingredientsService: IngredientsService, private recipiesService: RecipiesService) {}
+  constructor(private ingredientsService: IngredientsService) {}
 
   ngOnInit() {
-    this.getRecipes();
-    this.getIngredients();
-    this.selected = [];
   }
 
-  getRecipes() {
-    this.recipiesService.getRecipies()
-      .subscribe(recipies => (this.recepiesList = recipies));
+  pick (ingredient: Ingredient) {
+    this.log('test' + ingredient.name);
+    this.picked.emit(ingredient);
   }
 
-  getIngredients() {
-    this.ingredientsService.getSelectedIngredients()
-      .subscribe(ingredients => this.selected = ingredients);
-    this.ingredientsService.getUnselectedIngredients()
-      .subscribe(ingredients => this.notSelected = ingredients);
-    this.getRecipes();
-  }
-
-  select(ingredient: Ingredient) {
-    this.ingredientsService.selectIngredient(ingredient.id);
-    this.getIngredients();
-  }
-
-  unselect(ingredient: Ingredient) {
-    this.ingredientsService.unselectIngredient(ingredient.id);
-    this.getIngredients();
+   private log(message: string) {
+    console.log(message);
   }
 
 }

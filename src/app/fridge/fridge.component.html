@@ -1,0 +1,17 @@
+<h3>What do we have in fridge?</h3>
+<div class="fridge">
+	<app-ingredients [ingredientsList]="selected" (picked) = "unselect($event)" ></app-ingredients>
+	<app-ingredients [ingredientsList]="notSelected" (picked) = "select($event)" ></app-ingredients>
+</div>
+<h3>What do we can cook?</h3>
+<div class="recipiesBlock">
+	<table class="recepiesTable">
+		<tr *ngFor="let recipy of recepiesList"
+			[class.active]="recipy.haveIngredients">
+			<th>:</th>
+			<th>{{recipy.id}}</th>
+			<th>{{recipy.name}}</th>
+			<th>{{recipy.description}}</th>
+		</tr>
+	</table>
+</div>
