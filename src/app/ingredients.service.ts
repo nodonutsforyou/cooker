@@ -21,19 +21,15 @@ export class IngredientsService {
   private ingredientsUrl = 'api/ingredients';  // URL to web api
 
   constructor(private http: HttpClient) {
-//    this.getAllIngredients();
   }
 
   getAllIngredients(): Observable<Ingredient[]> {
     this.subscribeIngredients = this.http.get<Ingredient[]>(this.ingredientsUrl);
     this.subscribeIngredients.subscribe(ingredients => {
       this.ingredients = ingredients;
-//      this.log('observed count:' + this.ingredients.length);
       this.isIngredientsListUpToDate = true;
     });
-//    this.log('returned count:' + this.ingredients);
     return this.subscribeIngredients;
-    //    return of(this.mockIngredients);
   }
 
   getSelectedIngredients(): Observable<Ingredient[]> {
@@ -44,20 +40,29 @@ export class IngredientsService {
     if (this.subscribeIngredients == null) {
       this.getAllIngredients();
     }
-    return this.subscribeIngredients;
+    return this.subscribeIngredients.map(obj => obj.filter(i => i.selected));
   }
 
   getUnselectedIngredients(): Observable<Ingredient[]> {
-    const unselected = this.ingredients.filter(obj => !obj.selected);
-    return of(unselected);
+    if (this.isIngredientsListUpToDate) {
+      const notSelected = this.ingredients.filter(obj => !obj.selected);
+      return of(notSelected);
+    }
+    if (this.subscribeIngredients == null) {
+      this.getAllIngredients();
+    }
+    return this.subscribeIngredients.map(obj => obj.filter(i => !i.selected));
   }
 
   selectIngredient(id: number) {
-    this.ingredients.forEach(function(obj) {if (obj.id === id) {obj.selected = true;} });
+    this.ingredients.forEach(function(obj) {if (obj.id === id) {
+      console.log('select ' + obj.name);
+      obj.selected = true;
+    } });
   }
 
   unselectIngredient(id: number) {
-    this.ingredients.forEach(function(obj) {if (obj.id === id) {obj.selected = false;} });
+    this.ingredients.forEach(function(obj) {if (obj.id === id) {obj.selected = false; } });
   }
 
   isSelected(id: number): Boolean {

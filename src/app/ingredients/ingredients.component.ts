@@ -20,7 +20,9 @@ export class IngredientsComponent implements OnInit {
 
   pick (ingredient: Ingredient) {
     this.log('test' + ingredient.name);
-    this.picked.emit(ingredient);
+    console.log(this.picked);
+    const result = this.picked.emit(ingredient);
+    console.log(result);
   }
 
    private log(message: string) {

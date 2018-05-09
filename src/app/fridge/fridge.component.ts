@@ -39,12 +39,18 @@ export class FridgeComponent implements OnInit {
   }
 
   select(ingredient: Ingredient) {
+    this.log('select callback of ' + ingredient.name);
     this.ingredientsService.selectIngredient(ingredient.id);
     this.getIngredients();
   }
 
   unselect(ingredient: Ingredient) {
+    this.log('unselect callback of ' + ingredient.name);
     this.ingredientsService.unselectIngredient(ingredient.id);
     this.getIngredients();
+  }
+
+   private log(message: string) {
+    console.log(message);
   }
 }
