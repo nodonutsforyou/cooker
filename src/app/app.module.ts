@@ -9,12 +9,14 @@ import {AppComponent} from './app.component';
 import {IngredientsComponent} from './ingredients/ingredients.component';
 import {IngredientsService} from './ingredients.service';
 import {RecipiesService} from './recipies.service';
+import { RecipieEditorComponent } from './recipie-editor/recipie-editor.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    IngredientsComponent
+    IngredientsComponent,
+    RecipieEditorComponent
   ],
   imports: [
     BrowserModule,

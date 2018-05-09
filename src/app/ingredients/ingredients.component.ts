@@ -2,8 +2,8 @@ import {Component, OnInit} from '@angular/core';
 
 import {Ingredient} from '../ingredient';
 import {IngredientsService} from '../ingredients.service';
-import { Recipy } from '../recipy';
-import {RecipiesService } from '../recipies.service';
+import {Recipy} from '../recipy';
+import {RecipiesService} from '../recipies.service';
 
 @Component({
   selector: 'app-ingredients',
@@ -15,18 +15,18 @@ export class IngredientsComponent implements OnInit {
   selected: Ingredient[];
   notSelected: Ingredient[];
   recepiesList: Recipy[];
-  
+
   constructor(private ingredientsService: IngredientsService, private recipiesService: RecipiesService) {}
 
   ngOnInit() {
-    this.getIngredients();
     this.getRecipes();
+    this.getIngredients();
     this.selected = [];
   }
-  
+
   getRecipes() {
     this.recipiesService.getRecipies()
-    .subscribe(recipies => (this.recepiesList = recipies));
+      .subscribe(recipies => (this.recepiesList = recipies));
   }
 
   getIngredients() {
