@@ -19,10 +19,10 @@ export class IngredientsComponent implements OnInit {
   }
 
   pick (ingredient: Ingredient) {
-    this.log('test' + ingredient.name);
-    console.log(this.picked);
+    this.log('pick ' + ingredient.name);
+//    console.log(this.picked);
     const result = this.picked.emit(ingredient);
-    console.log(result);
+//    console.log(result);
   }
 
    private log(message: string) {

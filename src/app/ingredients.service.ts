@@ -6,6 +6,7 @@ import {of} from 'rxjs/observable/of';
 import {catchError, map, tap} from 'rxjs/operators';
 
 import {Ingredient} from './ingredient';
+import {Recipy} from './recipy';
 
 const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})
@@ -32,9 +33,31 @@ export class IngredientsService {
     return this.subscribeIngredients;
   }
 
+  getIngredientsFromRecipy(r: Recipy) {
+    if (this.isIngredientsListUpToDate) {
+      const selected = this.ingredients.filter(i => r.ingredients.indexOf(i.id) > -1);
+      return of(selected);
+    }
+    if (this.subscribeIngredients == null) {
+      this.getAllIngredients();
+    }
+    return this.subscribeIngredients.map(obj => obj.filter(i => r.ingredients.indexOf(i.id) > -1));
+  }
+
+  getIngredientsNotFromRecipy(r: Recipy) {
+    if (this.isIngredientsListUpToDate) {
+      const selected = this.ingredients.filter(i => r.ingredients.indexOf(i.id) === -1);
+      return of(selected);
+    }
+    if (this.subscribeIngredients == null) {
+      this.getAllIngredients();
+    }
+    return this.subscribeIngredients.map(obj => obj.filter(i => r.ingredients.indexOf(i.id) === -1));
+  }
+
   getSelectedIngredients(): Observable<Ingredient[]> {
     if (this.isIngredientsListUpToDate) {
-      const selected = this.ingredients.filter(obj => obj.selected);
+      const selected = this.ingredients.filter(i => i.selected);
       return of(selected);
     }
     if (this.subscribeIngredients == null) {
@@ -45,7 +68,7 @@ export class IngredientsService {
 
   getUnselectedIngredients(): Observable<Ingredient[]> {
     if (this.isIngredientsListUpToDate) {
-      const notSelected = this.ingredients.filter(obj => !obj.selected);
+      const notSelected = this.ingredients.filter(i => !i.selected);
       return of(notSelected);
     }
     if (this.subscribeIngredients == null) {
@@ -55,14 +78,16 @@ export class IngredientsService {
   }
 
   selectIngredient(id: number) {
-    this.ingredients.forEach(function(obj) {if (obj.id === id) {
-      console.log('select ' + obj.name);
-      obj.selected = true;
-    } });
+    this.ingredients.forEach(function(i) {
+      if (i.id === id) {
+        console.log('select ' + i.name);
+        i.selected = true;
+      }
+    });
   }
 
   unselectIngredient(id: number) {
-    this.ingredients.forEach(function(obj) {if (obj.id === id) {obj.selected = false; } });
+    this.ingredients.forEach(function(i) {if (i.id === id) {i.selected = false; } });
   }
 
   isSelected(id: number): Boolean {

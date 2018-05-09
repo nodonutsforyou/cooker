@@ -1,9 +1,11 @@
 <h1>recipie editor</h1>
 <br />
-<div class="recipie editor">
+<div class="recipieEditor">
 	<input [(ngModel)]="recipy.name" placeholder="recipy name" id="recipyName" />
 	<br />
-	<app-ingredients [ingredientsList]="ingredients" ></app-ingredients>
+	<app-ingredients [ingredientsList]="ingredients" (picked) = "unpickIngredient($event)" ></app-ingredients>
+	<br />
+	<app-ingredients [ingredientsList]="allOtherIngredients" (picked) = "pickIngredient($event)" ></app-ingredients>
 	<br />
 	<input [(ngModel)]="recipy.description" placeholder="recipy description" id="recipyDescription" />
 </div>
