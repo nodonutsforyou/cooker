@@ -9,6 +9,10 @@ import 'rxjs/add/operator/map';
 import {Recipy} from './recipy';
 import {IngredientsService} from './ingredients.service';
 
+const httpOptions = {
+  headers: new HttpHeaders({'Content-Type': 'application/json'})
+};
+
 @Injectable()
 export class RecipiesService {
 
@@ -50,6 +54,28 @@ export class RecipiesService {
       }
     }
     return true;
+  }
+
+  addNewRecipy(recipy: Recipy) {
+    console.log(recipy);
+    this.http.post(this.recipiesUrl, recipy, httpOptions)
+      .toPromise()
+      .then(this.extractData)
+      .catch(this.handleErrorPromise);
+  }
+
+  private extractData(res: Response) {
+    const body = res;
+    console.log(res);
+    return body || {};
+  }
+  private handleErrorObservable(error: Response | any) {
+    console.error(error.message || error);
+    return Observable.throw(error.message || error);
+  }
+  private handleErrorPromise(error: Response | any) {
+    console.error(error.message || error);
+    return Promise.reject(error.message || error);
   }
 
   private log(message: string) {

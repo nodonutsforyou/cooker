@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {Location} from '@angular/common';
 
 
 import {Ingredient} from '../ingredient';
@@ -18,7 +19,8 @@ export class RecipieEditorComponent implements OnInit {
   public allOtherIngredients: Ingredient[] = [];
 
   constructor(private ingredientsService: IngredientsService,
-    private recipiesService: RecipiesService) {}
+    private recipiesService: RecipiesService,
+    private location: Location) {}
 
   ngOnInit() {
     this.getIngredients();
@@ -48,10 +50,15 @@ export class RecipieEditorComponent implements OnInit {
   }
 
   private pickIngredient(ingr: Ingredient) {
-    if (this.recipy.ingredients.indexOf(ingr.id) === -1 ) {
+    if (this.recipy.ingredients.indexOf(ingr.id) === -1) {
       this.recipy.ingredients.push(ingr.id);
     }
     this.getIngredients();
+  }
+
+  public saveNewRecipy() {
+    this.recipiesService.addNewRecipy(this.recipy);
+    this.location.back();
   }
 
 }

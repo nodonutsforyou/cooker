@@ -4,7 +4,7 @@ export class Recipy {
   description: string;
   haveIngredients: boolean;
   ingredients: number[];
-  
+
   constructor() {
     this.ingredients = new Array<number>();
   }
